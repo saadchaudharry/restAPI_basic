@@ -10,6 +10,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import GenericAPIView,CreateAPIView,ListAPIView
 from rest_framework import mixins
+from rest_framework.authentication import BaseAuthentication,SessionAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class Articalcret(GenericAPIView,
                   mixins.ListModelMixin,
@@ -21,6 +23,8 @@ class Articalcret(GenericAPIView,
     serializer_class = Articlr_serlier
     queryset = Artical.objects.all()
     lookup_field = 'id'
+    authentication_classes = [SessionAuthentication,BaseAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self,request,id=None):
         if id:
